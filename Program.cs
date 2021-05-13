@@ -8,15 +8,12 @@ namespace Tetris
 {
     class Program
     {
-        public void Draw(Point point)
-        {
-            Console.SetCursorPosition(point.x, point.y);
-            Console.WriteLine("*");
-        }
         static void Main(string[] args)
         {
+            Point p1 = new Point(10, 10);
+            p1.Draw();
 
-
+            Console.SetCursorPosition(50, 30);
             Console.ReadLine();
         }
     }
