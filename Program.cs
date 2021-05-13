@@ -10,8 +10,8 @@ namespace Tetris
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("3rd try th create console application Tetris");
-            Console.WriteLine();
+
+
             Console.ReadLine();
         }
     }
