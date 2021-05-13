@@ -17,10 +17,17 @@ namespace Tetris
             this.y = y;
         }
 
-        public void Draw()
+        public void Draw(char sym)
         {
             Console.SetCursorPosition(x, y);
-            Console.WriteLine("*");
+            Console.WriteLine(sym);
+        }
+
+        public void Move()
+        {
+            Draw(' ');
+            y += 1;
+            Draw('*');
         }
     }
 }
