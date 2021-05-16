@@ -10,6 +10,9 @@ namespace Tetris
     {
         public int x { get; set; }
         public int y { get; set; }
+        public bool hit_bottom_line { get; set; }
+        bool hit_left_line { get; set; }
+        bool hit_right_line { get; set; }
 
         public Point(int x, int y)
         {
@@ -23,11 +26,43 @@ namespace Tetris
             Console.WriteLine(sym);
         }
 
-        public void Move()
-        {
+        public void Move(int leftBorder, int rightBorder, int bottomBorder)
+        {            
+            if (Console.KeyAvailable)
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.LeftArrow)
+                {
+                    if (!hit_left_line)
+                    {
+                        Draw(' ');
+                        x -= 1;
+                    }
+                }
+                if (key.Key == ConsoleKey.RightArrow)
+                {
+                    if (!hit_right_line)
+                    {
+                        Draw(' ');
+                        x += 1;
+                    }
+                }
+            }
             Draw(' ');
             y += 1;
             Draw('*');
+            if (y == bottomBorder - 1)
+            {
+                hit_bottom_line = true;
+            }
+            if (x == leftBorder + 1)
+            {
+                hit_left_line = true;
+            }
+            if (x == rightBorder - 1)
+            {
+                hit_right_line = true;
+            }
         }
     }
 }
