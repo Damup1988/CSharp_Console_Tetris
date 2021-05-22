@@ -16,6 +16,7 @@ namespace Tetris
             int playAreaHigh = 15;
             int playAreaWidth = 15;
             int row_length = playAreaWidth - 2;
+            int column_high = playAreaHigh - 2;
 
             Line topLine = new Line(new Point(1, 1), Direction.Right, playAreaWidth);
             topLine.Draw();
@@ -31,16 +32,16 @@ namespace Tetris
 
             int score = 0;
             bool gameover = false;
-            while (!gameover)
+            do
             {
                 Point p1 = new Point(8, 2);
-                p1.Draw('*');                
+                p1.Draw('*');
 
                 while (!p1.hit_bottom_line & !p1.hit_currentBottom)
                 {
                     p1.Move(leftLine.startPoint.x, rightLine.startPoint.x, bottomLine.startPoint.y, currentBottom);
-                    Thread.Sleep(250);                    
-                }                                
+                    Thread.Sleep(250);
+                }
                 currentBottom.Add(p1);
                 var rows_numbers = currentBottom.Select(x => x.y).Distinct().ToList();
                 foreach (var uniq_row_number in rows_numbers)
@@ -70,9 +71,17 @@ namespace Tetris
                         Console.WriteLine($"SCORE: {score}");
                     }
                 }
+                if (currentBottom.Count == column_high)
+                {
+                    gameover = true;
+                    Point p2 = new Point(8, 2);
+                    p2.Draw('*');
+                }
             }
+            while (!gameover);
 
-            Console.SetCursorPosition(1, 26);
+            Console.SetCursorPosition(1, 20);
+            Console.WriteLine("GAME OVER!");
             Console.ReadLine();
         }
     }
