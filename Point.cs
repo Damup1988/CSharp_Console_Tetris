@@ -13,6 +13,7 @@ namespace Tetris
         public bool hit_bottom_line { get; set; }
         bool hit_left_line { get; set; }
         bool hit_right_line { get; set; }
+        public bool hit_currentBottom { get; set; }    
 
         public Point(int x, int y)
         {
@@ -26,7 +27,7 @@ namespace Tetris
             Console.WriteLine(sym);
         }
 
-        public void Move(int leftBorder, int rightBorder, int bottomBorder)
+        public void Move(int leftBorder, int rightBorder, int bottomBorder, List<Point> currentBottom)
         {            
             if (Console.KeyAvailable)
             {
@@ -62,6 +63,14 @@ namespace Tetris
             if (x == rightBorder - 1)
             {
                 hit_right_line = true;
+            }
+            foreach (var item in currentBottom)
+            {
+                if (y == item.y -1 & x == item.x)
+                {
+                    hit_currentBottom = true;
+                    break;
+                }
             }
         }
     }

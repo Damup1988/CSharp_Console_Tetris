@@ -12,23 +12,33 @@ namespace Tetris
         static void Main(string[] args)
         {
             #region -=BORDERS=-
-            Line topLine = new Line(new Point(1, 1), Direction.Right, 35);
+
+            int playAreaHigh = 35;
+            int playAreaWidth = 35;
+
+            Line topLine = new Line(new Point(1, 1), Direction.Right, playAreaWidth);
             topLine.Draw();
-            Line leftLine = new Line(new Point(1, 1), Direction.Down, 25);
+            Line leftLine = new Line(new Point(1, 1), Direction.Down, playAreaHigh);
             leftLine.Draw();
-            Line rightLine = new Line(new Point(36, 1), Direction.Down, 25);
+            Line rightLine = new Line(new Point(playAreaWidth, 1), Direction.Down, playAreaHigh);
             rightLine.Draw();
-            Line bottomLine = new Line(new Point(1, 25), Direction.Right, 35);
+            Line bottomLine = new Line(new Point(1, playAreaHigh), Direction.Right, playAreaWidth);
             bottomLine.Draw();
             #endregion
 
-            Point p1 = new Point(18, 2);
-            p1.Draw('*');
-
-            while (!p1.hit_bottom_line)
+            List<Point> currentBottom = new List<Point>();
+            
+            while (true)
             {
-                p1.Move(leftLine.startPoint.x, rightLine.startPoint.x, bottomLine.startPoint.y);
-                Thread.Sleep(250);
+                Point p1 = new Point(18, 2);
+                p1.Draw('*');
+
+                while (!p1.hit_bottom_line & !p1.hit_currentBottom)
+                {
+                    p1.Move(leftLine.startPoint.x, rightLine.startPoint.x, bottomLine.startPoint.y, currentBottom);
+                    Thread.Sleep(250);
+                }                                
+                currentBottom.Add(p1);
             }
 
             Console.SetCursorPosition(1, 26);
