@@ -11,8 +11,8 @@ namespace Tetris
         public int x { get; set; }
         public int y { get; set; }
         public bool hit_bottom_line { get; set; }
-        bool hit_left_line { get; set; }
-        bool hit_right_line { get; set; }
+        public bool hit_left_line { get; set; }
+        public bool hit_right_line { get; set; }
         public bool hit_currentBottom { get; set; }    
 
         public Point(int x, int y)
@@ -27,12 +27,11 @@ namespace Tetris
             Console.WriteLine(sym);
         }
 
-        public void Move(int leftBorder, int rightBorder, int bottomBorder, List<Point> currentBottom)
+        public void Move(int leftBorder, int rightBorder, int bottomBorder, List<Point> currentBottom, string key)
         {            
-            if (Console.KeyAvailable)
+            if (key != "")
             {
-                ConsoleKeyInfo key = Console.ReadKey();
-                if (key.Key == ConsoleKey.LeftArrow)
+                if (key == "left")
                 {
                     if (!hit_left_line)
                     {
@@ -40,7 +39,7 @@ namespace Tetris
                         x -= 1;
                     }
                 }
-                if (key.Key == ConsoleKey.RightArrow)
+                if (key == "right")
                 {
                     if (!hit_right_line)
                     {
